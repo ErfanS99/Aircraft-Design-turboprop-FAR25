@@ -1,0 +1,22 @@
+function W_E2 = berguetAns(W_TO_guess)
+    % W_TO_guess = 27827.7028414618;
+    W = 0.992 * 0.996 * 0.996 * 0.992 * 0.992;
+    E = 0.8; % Unit h
+    R = 805.54561361645; % Unit sm
+    C_p_cr = 0.5;
+    C_p_lr = 0.5;
+    L_over_D_cr = 11; 
+    L_over_D_lr = 10;
+    V = 207.1403;  % Unit mph
+    etha_p_cr = 0.82;
+    etha_p_lr = 0.72;
+    Cruise = 1 / (exp(R / (375 * (etha_p_cr/C_p_cr) * L_over_D_cr)));
+    Loiter = 1 / (exp((E * V)/ (375 * (etha_p_lr/C_p_lr) * L_over_D_lr)));
+    Climb = 0.989592910219472;
+    M_ff = Cruise * Loiter * Climb * W;
+    % M_ff = 0.825028803329556;
+    W_PL = 4175;
+    W_crew = 525;
+    M_res = 0;
+    W_E2 = W_TO_guess - (W_PL + (( 1 - M_ff) .* W_TO_guess) + (M_res .* (1 - M_ff) .* W_TO_guess) + (0.005 .* W_TO_guess) + W_crew);
+end
